@@ -1,9 +1,9 @@
 {
-  "name": "koa2-api-scaffold",
-  "version": "1.0.4",
-  "description": "Koa2 RESTful API 服务器的脚手架",
-  "author": "yi-ge <a@wyr.me>",
-  "license": "WTFPL",
+  "name": "o-koa2-api",
+  "version": "1.0.0",
+  "description": "Koa2 RESTful API mysql mock",
+  "author": "nitrohe",
+  "license": "Apache-2.0",
   "scripts": {
     "start": "gulp nodemon",
     "dev": "gulp",
