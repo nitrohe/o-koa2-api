@@ -3,7 +3,9 @@ import { getItem, getList, addItem, updateItem, deleteItem } from '../models'
 import dbFields from '../models/model'
 import { CheckToken, GenerateToken } from '../lib/auth'
 import UploadFile from '../lib/upload'
+import { LoadMockData } from '../lib/loaddir'
 
+var __cache = {}
 /**
  * 校验数据库表、校验token
  * @param  ctx  Context对象
@@ -104,5 +106,29 @@ export const Upload = async (ctx, next) => {
   if (retCheck) {
     UploadFile(ctx)
   }
+  next()
+}
+
+export const Mock = async (ctx, next) => {
+  console.log('Mock**********ctx*******', ctx)
+  const module = ctx.params.module
+  const method = ctx.request.method
+  const cachKeys = Object.keys(__cache)
+  if (cachKeys.length === 0) {
+    console.log('Mock********load**__cache*******')
+    __cache = LoadMockData()
+  }
+  console.log('Mock**********__cache*******', __cache[module])
+  const queryMethod = method + ' /api/mock/' + module
+  if (!Object.prototype.hasOwnProperty.call(__cache, module)) {
+    ctx.status = 404
+  } else {
+    // TODO default?
+    const mockData = __cache[module].default
+    ctx.body = {
+      result: mockData[queryMethod]
+    }
+  }
+
   next()
 }

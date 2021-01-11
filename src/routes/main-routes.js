@@ -9,6 +9,7 @@ export default router
   })
   .post('/api/login', controllers.api.Login)
   .all('/api//upload', controllers.api.Upload)
+  .all('/api/mock/:module', controllers.api.Mock)
   .get('/api/:module', controllers.api.Get)
   .post('/api/:module', controllers.api.Post)
   .put('/api/:module', controllers.api.Put)
